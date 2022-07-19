@@ -3,6 +3,7 @@ package com.spring.ecommerce.SpringeCommerce.Entities;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
@@ -10,7 +11,8 @@ import javax.persistence.*;
 @Data
 @Getter
 @Setter
-@Table(name = "product")
+@Component
+@Table(name = "products")
 public class Product {
 
     @Id
@@ -27,14 +29,14 @@ public class Product {
     private String productImage;
 
     @Column(name = "productPrice")
-    private String productPrice;
+    private Double productPrice;
 
     @Column(name = "productCategory")
     private String productCategory;
 
     public Product() {}
 
-    public Product(Long productId, String productName, String productDescription, String productImage, String productPrice, String productCategory) {
+    public Product(Long productId, String productName, String productDescription, String productImage, Double productPrice, String productCategory) {
         this.productId = productId;
         this.productName = productName;
         this.productDescription = productDescription;

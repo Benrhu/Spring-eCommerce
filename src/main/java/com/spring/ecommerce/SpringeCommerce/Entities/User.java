@@ -1,16 +1,28 @@
 package com.spring.ecommerce.SpringeCommerce.Entities;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
-@Table(name = "user")
+@Component
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
+    private List<Order> orders;
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private List<Invoice> invoices;
+
     @Column(name = "username")
     private String userName;
 
@@ -35,14 +47,15 @@ public class User {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "postal_code")
+    @Column(name = "postalCode")
     private String zipCode;
-    private String role;
 
     public User() {}
 
-    public User(Long userId, String userName, String surname, String email, String password, String phone, String address, String city, String country, String zipCode, String role) {
+    public User(Long userId, List<Order> orders, List<Invoice> invoices, String userName, String surname, String email, String password, String phone, String address, String city, String country, String zipCode) {
         this.userId = userId;
+        this.orders = orders;
+        this.invoices = invoices;
         this.userName = userName;
         this.surname = surname;
         this.email = email;
@@ -52,6 +65,5 @@ public class User {
         this.city = city;
         this.country = country;
         this.zipCode = zipCode;
-        this.role = role;
     }
 }
